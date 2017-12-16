@@ -9,8 +9,8 @@
 		<version>1.5.9.RELEASE</version>
 	</parent>
 
-	<groupId>com.ectrip</groupId>
-	<artifactId>PM</artifactId>
+	<groupId>com.shendu</groupId>
+	<artifactId>shendupiaoju</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
 	<!--version -->
@@ -49,7 +49,6 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql-connector}</version>
 		</dependency>
 
 		<!--连接池 -->

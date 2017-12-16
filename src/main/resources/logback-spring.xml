@@ -36,7 +36,7 @@
 	<logger name="org.scribe" level="${log.level}" />
 
 	<!-- Application Logger -->
-	<logger name="com.ectrip.controller" level="${log.level}" />
+	<logger name="com.shendu.controller" level="${log.level}" />
 
 	<!-- Root Logger -->
 	<root level="${log.level}">

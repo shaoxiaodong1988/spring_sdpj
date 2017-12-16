@@ -27,6 +27,6 @@ spring:
 # mybatis
 mybatis:
   mapperLocations: classpath:mapper/*.xml
-  typeAliasesPackage: com.ectrip.model,com.ectrip.vo
+  typeAliasesPackage: com.shendu.model,com.shendu.vo
   configLocation: classpath:mybatis-config.xml
 
