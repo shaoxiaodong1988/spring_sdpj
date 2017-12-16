@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shendu.dao.VersionDAO">
+
+	<resultMap type="Version" id="versionResultMap">
+		<id column="ID" property="id" />
+		<result column="VERSION" property="version" />
+		<result column="MODLE_ID" property="modleId" />
+		<result column="UP_USERID" property="upUserId" />
+		<result column="UP_TIME" property="upTime" />
+		<result column="VERSION_ID" property="versionId" />
+		<result column="DEMAND_ID" property="demandId" />
+		<result column="VERSION_STATE" property="versionState" />
+	</resultMap>
+
+	<!--表名 -->
+	<sql id="tableName">
+		VERSION
+	</sql>
+
+	<!-- 字段 -->
+	<sql id="Field">
+		ID,
+		VERSION,
+		MODLE_ID,
+		UP_USERID,
+		UP_TIME,
+		VERSION_ID,
+		DEMAND_ID,
+		VERSION_STATE
+	</sql>
+
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{id},
+		#{version},
+		#{modleId},
+		#{upUserId},
+		#{upTime},
+		#{versionId},
+		#{demandId},
+		#{versionState}
+	</sql>
+
+	<!-- 主键查询 -->
+	<select id="findVersion" resultMap="versionResultMap">
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
+		WHERE ID=#{id}
+	</select>
+
+	<!-- 条件查询 -->
+	<select id="queryVersion" resultMap="versionResultMap">
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
+		WHERE 1=1
+		<if test="projectId!=null and projectId!=''">
+			AND PROJECT_ID=#{projectId}
+		</if>
+		<if test="modleId!=null and modleId!=''">
+			AND MODLE_ID=#{modleId}
+		</if>
+		<if test="version!=null and version!=''">
+			AND VERSION=#{version}
+		</if>
+	</select>
+
+	<!-- 条件查询 -->
+	<select id="queryVersionList" resultMap="versionResultMap"
+		parameterType="int">
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
+		WHERE DEMAND_ID=#{demandId}
+	</select>
+
+	<!-- 条件查询 -->
+	<select id="queryModleVersionList" resultMap="versionResultMap">
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
+		WHERE MODLE_ID=#{modleId}
+	</select>
+
+	<!-- 修改 <update id="updateVersion" parameterType="Version"> UPDATE <include 
+		refid="tableName"></include> SET PROJECT_ID=#{projectId},MODLE_NAME=#{modleName},MODLE_DESCRIBE=#{modleDescribe},MODLE_STATE=#{modleState} 
+		WHERE ID=#{id} </update> -->
+
+	<!-- 新增 -->
+	<insert id="saveModle" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
+		) values (
+		<include refid="FieldValue"></include>
+		)
+	</insert>
+
+	<insert id="batchSave" parameterType="java.util.List">
+		insert into
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
+		)
+		values
+
+		<foreach collection="versionList" item="version" index="index"
+			separator=",">
+			(
+			#{version.id},
+			#{version.version},
+			#{version.modleId},
+			#{version.upUserId},
+			#{version.upTime},
+			#{version.versionId},
+			#{version.demandId},
+			#{version.versionState}
+			)
+		</foreach>
+	</insert>
+
+
+	<!--批量更新模块状态 -->
+	<update id="batchUpdateState" parameterType="java.util.List">
+		<foreach collection="versionList" index="index" item="item"
+			open="" separator=";">
+			update
+			<include refid="tableName"></include>
+			set VERSION_STATE=#{item.versionState}
+			where ID=#{item.id}
+		</foreach>
+	</update>
+
+</mapper>
