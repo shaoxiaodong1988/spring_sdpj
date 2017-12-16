@@ -3,9 +3,9 @@
 <mapper namespace="com.ectrip.dao.ModleDemandDAO">
 
 	<resultMap type="ModleDemand" id="modleDemandResultMap">
-		<id column="ID" property="id"/>
-		<result column="MODLE_ID" property="modleId"/>
-		<result column="DEMAND_ID" property="demandId"/>
+		<id column="ID" property="id" />
+		<result column="MODLE_ID" property="modleId" />
+		<result column="DEMAND_ID" property="demandId" />
 	</resultMap>
 
 	<!--表名 -->
@@ -27,55 +27,67 @@
 		#{demandId}
 	</sql>
 
-	<!-- 主键查询-->
+	<!-- 主键查询 -->
 	<select id="find" resultMap="modleDemandResultMap">
-		SELECT <include refid="Field"></include> FROM <include refid="tableName"></include>
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
 		WHERE ID=#{id}
 	</select>
 
 	<select id="deleteModleDemand" parameterType="int">
-		DELETE FROM <include refid="tableName"></include>
+		DELETE FROM
+		<include refid="tableName"></include>
 		WHERE DEMAND_ID=#{demandId}
 	</select>
 
 
-	<!-- 条件查询-->
+	<!-- 条件查询 -->
 	<select id="findModleDemandList" resultMap="modleDemandResultMap">
 		SELECT ID,MODLE_ID
-		FROM <include refid="tableName"></include>
+		FROM
+		<include refid="tableName"></include>
 		WHERE DEMAND_ID=#{demandId}
 	</select>
 
 
-	<!-- 修改-->
+	<!-- 修改 -->
 	<update id="update" parameterType="Modle">
-		UPDATE <include refid="tableName"></include>
-		SET PROJECT_ID=#{projectId},MODLE_NAME=#{modleName},MODLE_DESCRIBE=#{modleDescribe},MODLE_STATE=#{modleState}
+		UPDATE
+		<include refid="tableName"></include>
+		SET
+		PROJECT_ID=#{projectId},MODLE_NAME=#{modleName},MODLE_DESCRIBE=#{modleDescribe},MODLE_STATE=#{modleState}
 		WHERE ID=#{id}
 	</update>
 
-	<!-- 新增-->
+	<!-- 新增 -->
 	<insert id="save" useGeneratedKeys="true" keyProperty="id">
-		insert into <include refid="tableName"></include>(
-			<include refid="Field"></include>
+		insert into
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
 		) values (
-			<include refid="FieldValue"></include>
+		<include refid="FieldValue"></include>
 		)
 	</insert>
 
 	<insert id="batchSave" parameterType="java.util.List">
-		insert into <include refid="tableName"></include>(
+		insert into
+		<include refid="tableName"></include>
+		(
 		<include refid="Field"></include>
 		)
 		values
 
-		<foreach collection ="modleDemandList" item="modle" index= "index" separator =",">
+		<foreach collection="modleDemandList" item="modle" index="index"
+			separator=",">
 			(
 			#{modle.id},
 			#{modle.modleId},
 			#{modle.demandId}
 			)
-		</foreach >
+		</foreach>
 	</insert>
 
 </mapper>

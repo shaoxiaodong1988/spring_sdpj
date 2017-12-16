@@ -3,17 +3,17 @@
 <mapper namespace="com.ectrip.dao.DemandDAO">
 
 	<resultMap type="Demand" id="demandResultMap">
-		<id column="ID" property="id"/>
-		<result column="PROJECT_ID" property="projectId"/>
-		<result column="DEMAND_NAME" property="demandName"/>
-		<result column="DEMAND_DESCRIBE" property="demandDescribe"/>
-		<result column="PUT_TIME" property="putTime"/>
-		<result column="VERSION" property="version"/>
-		<result column="PUT_USERID" property="putUserId"/>
-		<result column="EXCEPT_END_TIME" property="exceptEndTime"/>
-		<result column="ACTUAL_END_TIME" property="actualEndTime"/>
-		<result column="COMPLETE_USERID" property="completeUserId"/>
-		<result column="DEMAND_STATUS" property="demandStatus"/>
+		<id column="ID" property="id" />
+		<result column="PROJECT_ID" property="projectId" />
+		<result column="DEMAND_NAME" property="demandName" />
+		<result column="DEMAND_DESCRIBE" property="demandDescribe" />
+		<result column="PUT_TIME" property="putTime" />
+		<result column="VERSION" property="version" />
+		<result column="PUT_USERID" property="putUserId" />
+		<result column="EXCEPT_END_TIME" property="exceptEndTime" />
+		<result column="ACTUAL_END_TIME" property="actualEndTime" />
+		<result column="COMPLETE_USERID" property="completeUserId" />
+		<result column="DEMAND_STATUS" property="demandStatus" />
 	</resultMap>
 
 	<!--表名 -->
@@ -51,34 +51,39 @@
 		#{demandStatus}
 	</sql>
 
-	<!-- 主键查询-->
+	<!-- 主键查询 -->
 	<select id="find" resultMap="demandResultMap" parameterType="int">
-		SELECT <include refid="Field"></include> FROM <include refid="tableName"></include>
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
 		WHERE ID=#{id}
 	</select>
 
 	<delete id="delete" parameterType="int">
-		DELETE  FROM <include refid="tableName"></include>
+		DELETE FROM
+		<include refid="tableName"></include>
 		WHERE ID=#{id}
 	</delete>
 
-	<!-- 条件查询-->
+	<!-- 条件查询 -->
 	<select id="findDemandListPage" resultType="DemandVO">
-		SELECT  d.ID as id,
-				d.PROJECT_ID as projectId,
-				p.PROJECT_NAME as projectName,
-				d.DEMAND_NAME as demandName,
-				d.DEMAND_DESCRIBE as demandDescribe,
-				d.PUT_TIME as putTime,
-				d.VERSION as version,
-				d.PUT_USERID as putUserId,
-				d.EXCEPT_END_TIME as exceptEndTime,
-				d.ACTUAL_END_TIME as actualEndTime,
-				d.COMPLETE_USERID as completeUserId,
-				(CASE WHEN DEMAND_STATUS='0' THEN '开发中'
-				ELSE '已完成' END ) as demandStatus
+		SELECT d.ID as id,
+		d.PROJECT_ID as projectId,
+		p.PROJECT_NAME as projectName,
+		d.DEMAND_NAME as demandName,
+		d.DEMAND_DESCRIBE as demandDescribe,
+		d.PUT_TIME as putTime,
+		d.VERSION as version,
+		d.PUT_USERID as putUserId,
+		d.EXCEPT_END_TIME as exceptEndTime,
+		d.ACTUAL_END_TIME as actualEndTime,
+		d.COMPLETE_USERID as completeUserId,
+		(CASE WHEN DEMAND_STATUS='0' THEN '开发中'
+		ELSE '已完成' END ) as demandStatus
 		FROM demand d,project p
-		WHERE d.project_id = p.id
+		WHERE d.project_id
+		= p.id
 		<if test="projectId!=null and projectId!=''">
 			AND p.id=#{projectId}
 		</if>
@@ -90,18 +95,22 @@
 		</if>
 	</select>
 
-	<!-- 新增-->
-	<insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="Demand">
-		insert into <include refid="tableName"></include>(
-			<include refid="Field"></include>
+	<!-- 新增 -->
+	<insert id="save" useGeneratedKeys="true" keyProperty="id"
+		parameterType="Demand">
+		insert into
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
 		) values (
-			<include refid="FieldValue"></include>
+		<include refid="FieldValue"></include>
 		)
 	</insert>
 
-	<!-- 更新-->
+	<!-- 更新 -->
 	<update id="update" parameterType="Demand">
-		UPDATE <include refid="tableName"></include>
+		UPDATE
+		<include refid="tableName"></include>
 		SET
 		<if test="projectId!=null and projectId!=''">
 			PROJECT_ID=#{projectId},
@@ -130,7 +139,7 @@
 		<if test="demandStatus!=null and demandStatus!=''">
 			DEMAND_STATUS=#{demandStatus},
 		</if>
-			DEMAND_NAME=#{demandName}
+		DEMAND_NAME=#{demandName}
 		WHERE ID=#{id}
 	</update>
 

@@ -35,9 +35,13 @@
 	margin-bottom: 40px;
 }
 
-.beg-table thead {}
+.beg-table thead {
+	
+}
 
-.beg-table thead tr {}
+.beg-table thead tr {
+	
+}
 
 .beg-table thead tr th {
 	vertical-align: bottom;
@@ -46,9 +50,13 @@
 	background-color: #f2f2f2;
 }
 
-.beg-table tbody {}
+.beg-table tbody {
+	
+}
 
-.beg-table tbody tr {}
+.beg-table tbody tr {
+	
+}
 
 .beg-table tbody tr td {
 	padding: 7px 15px;
@@ -60,19 +68,16 @@
 	border: 1px solid #DDDDDD;
 }
 
-.beg-table-bordered td,
-.beg-table-bordered th {
+.beg-table-bordered td, .beg-table-bordered th {
 	border: 1px solid #DDDDDD;
 }
 
-.beg-table-striped tbody tr:nth-child(even),
-.beg-table-hovered tbody tr:hover {
+.beg-table-striped tbody tr:nth-child(even), .beg-table-hovered tbody tr:hover
+	{
 	background-color: #f6f6f6;
 }
 
-
 /*page*/
-
 .beg-table-box .beg-table-paged {
 	position: absolute;
 	bottom: 0;
@@ -88,4 +93,5 @@
 
 .beg-table-box .beg-table-paged .layui-laypage a {
 	/*margin: 0;*/
+	
 }

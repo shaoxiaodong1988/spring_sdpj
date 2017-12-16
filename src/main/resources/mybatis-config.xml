@@ -4,12 +4,12 @@
 <configuration>
 
 	<settings>
-		<!--关闭缓存-->
-        <setting name="cacheEnabled" value="false" />
-		<!--生成key-->
-        <setting name="useGeneratedKeys" value="true" />
-		<!--默认Excutor为ReuseExcutor-->
-        <setting name="defaultExecutorType" value="REUSE" />
-    </settings>
-	
+		<!--关闭缓存 -->
+		<setting name="cacheEnabled" value="false" />
+		<!--生成key -->
+		<setting name="useGeneratedKeys" value="true" />
+		<!--默认Excutor为ReuseExcutor -->
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+
 </configuration>

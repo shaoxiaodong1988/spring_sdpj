@@ -3,10 +3,10 @@
 <mapper namespace="com.ectrip.dao.ModlePrototypeDAO">
 
 	<resultMap type="ModlePrototype" id="modlePrototypeResultMap">
-		<id column="ID" property="id"/>
-		<result column="MODLE_PROTOTYPE_NAME" property="modlePrototypeName"/>
-		<result column="MODLE_PROTOTYPE_DESCRIBE" property="modlePrototypeDescribe"/>
-		<result column="OPERATE_TIME" property="operateTime"/>
+		<id column="ID" property="id" />
+		<result column="MODLE_PROTOTYPE_NAME" property="modlePrototypeName" />
+		<result column="MODLE_PROTOTYPE_DESCRIBE" property="modlePrototypeDescribe" />
+		<result column="OPERATE_TIME" property="operateTime" />
 	</resultMap>
 
 	<!--表名 -->
@@ -30,54 +30,76 @@
 		#{operateTime}
 	</sql>
 
-	<!-- 主键查询-->
-	<select id="find" resultMap="modlePrototypeResultMap" parameterType="int">
-		SELECT <include refid="Field"></include> FROM <include refid="tableName"></include>
+	<!-- 主键查询 -->
+	<select id="find" resultMap="modlePrototypeResultMap"
+		parameterType="int">
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
 		WHERE ID=#{id}
 	</select>
 
-	<!-- 查询所有-->
+	<!-- 查询所有 -->
 	<select id="findAllModlePrototypeList" resultMap="modlePrototypeResultMap">
-		SELECT <include refid="Field"></include> FROM <include refid="tableName"></include>
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
 	</select>
 
-	<!-- 通过id集合查询-->
-	<select id="findModlePrototypeList" resultMap="modlePrototypeResultMap" parameterType="java.util.List">
-		SELECT <include refid="Field"></include> FROM <include refid="tableName"></include>
+	<!-- 通过id集合查询 -->
+	<select id="findModlePrototypeList" resultMap="modlePrototypeResultMap"
+		parameterType="java.util.List">
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
 		WHERE ID IN
-		<foreach item="item" index="index" collection="mids" open="(" separator="," close=")">
+		<foreach item="item" index="index" collection="mids" open="("
+			separator="," close=")">
 			#{item}
 		</foreach>
 	</select>
 
-	<!-- 条件查询-->
+	<!-- 条件查询 -->
 	<select id="findModlePrototypeListPage" resultMap="modlePrototypeResultMap">
-		SELECT <include refid="Field"></include> FROM <include refid="tableName"></include>
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
 		WHERE 1=1
 		<if test="modlePrototypeName!=null and modlePrototypeName!=''">
-			AND MODLE_PROTOTYPE_NAME LIKE CONCAT('%', #{modlePrototypeName}, '%')
+			AND MODLE_PROTOTYPE_NAME LIKE CONCAT('%',
+			#{modlePrototypeName}, '%')
 		</if>
 	</select>
 
-	<!-- 修改-->
+	<!-- 修改 -->
 	<update id="update" parameterType="ModlePrototype">
-		UPDATE <include refid="tableName"></include>
-		SET MODLE_PROTOTYPE_NAME=#{modlePrototypeName},MODLE_PROTOTYPE_DESCRIBE=#{modlePrototypeDescribe},OPERATE_TIME=#{operateTime}
+		UPDATE
+		<include refid="tableName"></include>
+		SET
+		MODLE_PROTOTYPE_NAME=#{modlePrototypeName},MODLE_PROTOTYPE_DESCRIBE=#{modlePrototypeDescribe},OPERATE_TIME=#{operateTime}
 		WHERE ID=#{id}
 	</update>
 
-	<!-- 删除-->
+	<!-- 删除 -->
 	<delete id="delete" parameterType="int">
-		DELETE FROM <include refid="tableName"></include>
+		DELETE FROM
+		<include refid="tableName"></include>
 		WHERE ID=#{id}
 	</delete>
 
-	<!-- 新增-->
-	<insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="ModlePrototype">
-		insert into <include refid="tableName"></include>(
-			<include refid="Field"></include>
+	<!-- 新增 -->
+	<insert id="save" useGeneratedKeys="true" keyProperty="id"
+		parameterType="ModlePrototype">
+		insert into
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
 		) values (
-			<include refid="FieldValue"></include>
+		<include refid="FieldValue"></include>
 		)
 	</insert>
 

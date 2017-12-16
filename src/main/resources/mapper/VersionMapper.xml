@@ -3,14 +3,14 @@
 <mapper namespace="com.ectrip.dao.VersionDAO">
 
 	<resultMap type="Version" id="versionResultMap">
-		<id column="ID" property="id"/>
-		<result column="VERSION" property="version"/>
-		<result column="MODLE_ID" property="modleId"/>
-		<result column="UP_USERID" property="upUserId"/>
-		<result column="UP_TIME" property="upTime"/>
-		<result column="VERSION_ID" property="versionId"/>
-		<result column="DEMAND_ID" property="demandId"/>
-		<result column="VERSION_STATE" property="versionState"/>
+		<id column="ID" property="id" />
+		<result column="VERSION" property="version" />
+		<result column="MODLE_ID" property="modleId" />
+		<result column="UP_USERID" property="upUserId" />
+		<result column="UP_TIME" property="upTime" />
+		<result column="VERSION_ID" property="versionId" />
+		<result column="DEMAND_ID" property="demandId" />
+		<result column="VERSION_STATE" property="versionState" />
 	</resultMap>
 
 	<!--表名 -->
@@ -42,15 +42,21 @@
 		#{versionState}
 	</sql>
 
-	<!-- 主键查询-->
+	<!-- 主键查询 -->
 	<select id="findVersion" resultMap="versionResultMap">
-		SELECT <include refid="Field"></include> FROM <include refid="tableName"></include>
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
 		WHERE ID=#{id}
 	</select>
 
-	<!-- 条件查询-->
+	<!-- 条件查询 -->
 	<select id="queryVersion" resultMap="versionResultMap">
-		SELECT <include refid="Field"></include> FROM <include refid="tableName"></include>
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
 		WHERE 1=1
 		<if test="projectId!=null and projectId!=''">
 			AND PROJECT_ID=#{projectId}
@@ -63,41 +69,50 @@
 		</if>
 	</select>
 
-	<!-- 条件查询-->
-	<select id="queryVersionList" resultMap="versionResultMap" parameterType="int">
-		SELECT <include refid="Field"></include> FROM <include refid="tableName"></include>
+	<!-- 条件查询 -->
+	<select id="queryVersionList" resultMap="versionResultMap"
+		parameterType="int">
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
 		WHERE DEMAND_ID=#{demandId}
 	</select>
 
-	<!-- 条件查询-->
+	<!-- 条件查询 -->
 	<select id="queryModleVersionList" resultMap="versionResultMap">
-		SELECT <include refid="Field"></include> FROM <include refid="tableName"></include>
+		SELECT
+		<include refid="Field"></include>
+		FROM
+		<include refid="tableName"></include>
 		WHERE MODLE_ID=#{modleId}
 	</select>
 
-	<!-- 修改
-	<update id="updateVersion" parameterType="Version">
-		UPDATE <include refid="tableName"></include>
-		SET PROJECT_ID=#{projectId},MODLE_NAME=#{modleName},MODLE_DESCRIBE=#{modleDescribe},MODLE_STATE=#{modleState}
-		WHERE ID=#{id}
-	</update>-->
+	<!-- 修改 <update id="updateVersion" parameterType="Version"> UPDATE <include 
+		refid="tableName"></include> SET PROJECT_ID=#{projectId},MODLE_NAME=#{modleName},MODLE_DESCRIBE=#{modleDescribe},MODLE_STATE=#{modleState} 
+		WHERE ID=#{id} </update> -->
 
-	<!-- 新增-->
+	<!-- 新增 -->
 	<insert id="saveModle" useGeneratedKeys="true" keyProperty="id">
-		insert into <include refid="tableName"></include>(
-			<include refid="Field"></include>
+		insert into
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
 		) values (
-			<include refid="FieldValue"></include>
+		<include refid="FieldValue"></include>
 		)
 	</insert>
 
 	<insert id="batchSave" parameterType="java.util.List">
-		insert into <include refid="tableName"></include>(
+		insert into
+		<include refid="tableName"></include>
+		(
 		<include refid="Field"></include>
 		)
 		values
 
-		<foreach collection ="versionList" item="version" index= "index" separator =",">
+		<foreach collection="versionList" item="version" index="index"
+			separator=",">
 			(
 			#{version.id},
 			#{version.version},
@@ -108,14 +123,16 @@
 			#{version.demandId},
 			#{version.versionState}
 			)
-		</foreach >
+		</foreach>
 	</insert>
 
 
-	<!--批量更新模块状态-->
+	<!--批量更新模块状态 -->
 	<update id="batchUpdateState" parameterType="java.util.List">
-		<foreach collection="versionList" index="index" item="item" open="" separator=";">
-			update  <include refid="tableName"></include>
+		<foreach collection="versionList" index="index" item="item"
+			open="" separator=";">
+			update
+			<include refid="tableName"></include>
 			set VERSION_STATE=#{item.versionState}
 			where ID=#{item.id}
 		</foreach>
